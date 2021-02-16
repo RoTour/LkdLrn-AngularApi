@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ContactsService } from '../contacts.service';
+import { ContactsService } from '../Services/contacts.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -65,7 +65,7 @@ export class ContactsComponent implements OnInit{
       },
       error => {
         console.log('Error saving contact');
-        return Observable.throw(error);
+        console.log(error);
       }
     );
   }

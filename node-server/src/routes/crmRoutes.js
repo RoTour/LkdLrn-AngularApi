@@ -30,9 +30,9 @@ const routes = (app) => {
     .delete(loginRequired, deleteContact);
 
     // registration / login
-    app.route('auth/register')
+    app.route('/auth/register')
         .post(register);
-    app.route('auth/login')
+    app.route('/auth/login')
         .post(login);
 
 }

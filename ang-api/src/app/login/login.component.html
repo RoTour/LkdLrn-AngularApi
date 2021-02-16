@@ -1,0 +1,18 @@
+<div class="row">
+  <form class="col s12" #form="ngForm" (ngSubmit)="login($event)">
+    <div class="row">
+      <div class="input-field col s4">
+        <input placeholder="User" name="username" type="text" [(ngModel)]="username">
+      </div>
+      <div class="input-field col s4">
+        <input placeholder="Email" name="email" type="text" [(ngModel)]="email">
+      </div>
+      <div class="input-field col s4">
+        <input placeholder="Password" name="password" type="text" [(ngModel)]="password">
+      </div>
+    </div>
+    <div class="row">
+      <button class="waves-effect waves-light btn" id="btn" type="submit">LOGIN</button>
+    </div>
+  </form>
+</div>

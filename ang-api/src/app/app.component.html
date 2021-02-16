@@ -1,6 +1,9 @@
-<div style="text-align: center">
-  <app-header></app-header>
-  <app-contacts></app-contacts>
+<div [style.background-color]="background">
+  <div *ngIf="auth.isLoggedIn()">
+    <app-header></app-header>
+    <app-contacts></app-contacts>
+  </div>
+  <div *ngIf="!auth.isLoggedIn()">
+    <app-login></app-login>
+  </div>
 </div>
-
-

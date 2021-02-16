@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './Services/auth.service';
 
 
 @Component({
@@ -8,4 +9,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
   background = '#f5f6fa';
+  constructor(public auth: AuthService) {
+  }
 }
