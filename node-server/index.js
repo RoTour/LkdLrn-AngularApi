@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import routes from './src/routes/crmRoutes';
+import cors from "cors";
+import jsonwebtoken from "jsonwebtoken";
 
 const app = express();
 const PORT = 3000;
@@ -15,11 +17,21 @@ mongoose.connect('mongodb://localhost/CRMdb', {
 // bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
+
+// JWT setup
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+    if(req.headers && req.headers.authorization && req.headers.authorization.split('')[0] === 'JWT') {
+        jsonwebtoken.verify(req.headers.authorization.split('')[0], 'RESTFULAPIs',
+            (err, decode) => {
+                if (err) req.user = undefined;
+                req.user = decode;
+                next();
+            });
+    } else {
+        req.user = undefined;
+    }
+})
 
 routes(app);
 
