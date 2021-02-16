@@ -1,26 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ContactsService } from './contacts.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'ang-api';
-  url = 'http://localhost:3000/contact';
   // Maybe create Contact Class ?
   public contacts: any;
 
-  constructor(private http: HttpClient) {
-
+  constructor(private contactService: ContactsService) {
   }
 
   ngOnInit(): void {
-    this.http.get(this.url)
-      .subscribe(
-        data => { this.contacts = data; },
-        error => console.log(error)
-      );
+    this.getContacts();
   }
+
+  getContacts = () => {
+    this.contactService.getContacts()
+    .subscribe(
+      data => this.contacts = data,
+      error => console.log(error)
+    );
+  }
+
+  addContact = (value: any) => {
+    this.contactService.addContact(value)
+    .subscribe(
+      () => {
+        this.getContacts();
+        return true;
+      },
+      error => {
+        console.log('Error saving contact');
+        return Observable.throw(error);
+      }
+    );
+  }
+
 }
