@@ -13,7 +13,15 @@ export class ContactsService {
   getContacts = () => this.http.get(this.url);
 
   addContact = (value: any) => {
-    const body = JSON.stringify(value);
+    const body = {
+      firstName: value.firstName,
+      lastName: value.lastName,
+      email: value.email,
+      company: value.company,
+      phone: parseInt(value.phone, 10),
+    };
+    console.log(body);
+
     return this.http.post(this.url, body);
   }
 }
